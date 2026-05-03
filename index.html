@@ -1,1 +1,259 @@
 <h1>hello</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UrbanNest Real Estate</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f5f5f5;
+}
+
+/* HEADER */
+header {
+    background: #ff7a00;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+/* TABS */
+.tabs {
+    display: flex;
+}
+.tab {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    background: #fff;
+    border-bottom: 2px solid #ff7a00;
+}
+.tab.active {
+    background: #ff7a00;
+    color: white;
+}
+
+/* CONTENT */
+.content {
+    display: none;
+    padding: 20px;
+}
+.content.active {
+    display: block;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* SLIDER */
+.slider {
+    position: relative;
+}
+.slider img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.buttons {
+    position: absolute;
+    top: 45%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.buttons button {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* VIDEO + MAP */
+iframe {
+    width: 100%;
+    height: 250px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.price {
+    color: #ff7a00;
+    font-weight: bold;
+}
+</style>
+
+<script>
+let currentSlide = [0,0,0];
+
+function showTab(index) {
+    let tabs = document.querySelectorAll('.tab');
+    let contents = document.querySelectorAll('.content');
+
+    tabs.forEach(t => t.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+
+    tabs[index].classList.add('active');
+    contents[index].classList.add('active');
+}
+
+function changeSlide(propertyIndex, direction) {
+    let slides = document.querySelectorAll(`.slides-${propertyIndex} img`);
+    currentSlide[propertyIndex] += direction;
+
+    if(currentSlide[propertyIndex] < 0)
+        currentSlide[propertyIndex] = slides.length - 1;
+    if(currentSlide[propertyIndex] >= slides.length)
+        currentSlide[propertyIndex] = 0;
+
+    slides.forEach(img => img.style.display = "none");
+    slides[currentSlide[propertyIndex]].style.display = "block";
+}
+
+function initSlides() {
+    for(let i=0;i<3;i++){
+        let slides = document.querySelectorAll(`.slides-${i} img`);
+        slides.forEach(img => img.style.display="none");
+        if(slides[0]) slides[0].style.display="block";
+    }
+}
+
+window.onload = initSlides;
+</script>
+
+</head>
+<body>
+
+<header>
+<h1>UrbanNest Residences</h1>
+<p>Luxury Living with Full Amenities</p>
+</header>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab(0)">Delhi</div>
+<div class="tab" onclick="showTab(1)">Mumbai</div>
+<div class="tab" onclick="showTab(2)">Bangalore</div>
+</div>
+
+<!-- DELHI -->
+<div class="content active">
+<div class="card">
+<h2>Skyline Residency - Delhi</h2>
+<p class="price">₹85 Lakhs</p>
+
+<!-- SLIDER -->
+<div class="slider slides-0">
+<img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2">
+<img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae">
+<img src="https://images.unsplash.com/photo-1572120360610-d971b9d7767c">
+
+<div class="buttons">
+<button onclick="changeSlide(0,-1)">❮</button>
+<button onclick="changeSlide(0,1)">❯</button>
+</div>
+</div>
+
+<ul>
+<li>Swimming Pool</li>
+<li>Playground</li>
+<li>24/7 Security</li>
+<li>Lift, Water, Electricity</li>
+<li>Hospital & Mall Nearby</li>
+</ul>
+
+<h3>Swimming Pool Video</h3>
+<iframe src="https://www.youtube.com/embed/2OEL4P1Rz04"></iframe>
+
+<h3>Green Park Video</h3>
+<iframe src="https://www.youtube.com/embed/Scxs7L0vhZ4"></iframe>
+
+<h3>Location</h3>
+<iframe src="https://maps.google.com/maps?q=Delhi&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+
+</div>
+</div>
+
+<!-- MUMBAI -->
+<div class="content">
+<div class="card">
+<h2>Sunrise Towers - Mumbai</h2>
+<p class="price">₹1.2 Crore</p>
+
+<div class="slider slides-1">
+<img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6">
+<img src="https://images.unsplash.com/photo-1494526585095-c41746248156">
+<img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb">
+
+<div class="buttons">
+<button onclick="changeSlide(1,-1)">❮</button>
+<button onclick="changeSlide(1,1)">❯</button>
+</div>
+</div>
+
+<ul>
+<li>Infinity Pool</li>
+<li>Garden & Playground</li>
+<li>High Security</li>
+<li>Parking</li>
+</ul>
+
+<h3>Swimming Pool</h3>
+<iframe src="https://www.youtube.com/embed/2OEL4P1Rz04"></iframe>
+
+<h3>Green Park</h3>
+<iframe src="https://www.youtube.com/embed/Scxs7L0vhZ4"></iframe>
+
+<h3>Location</h3>
+<iframe src="https://maps.google.com/maps?q=Mumbai&t=&z=13&output=embed"></iframe>
+
+</div>
+</div>
+
+<!-- BANGALORE -->
+<div class="content">
+<div class="card">
+<h2>Green Valley Homes - Bangalore</h2>
+<p class="price">₹70 Lakhs</p>
+
+<div class="slider slides-2">
+<img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb">
+<img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511">
+<img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994">
+
+<div class="buttons">
+<button onclick="changeSlide(2,-1)">❮</button>
+<button onclick="changeSlide(2,1)">❯</button>
+</div>
+</div>
+
+<ul>
+<li>Swimming Pool</li>
+<li>Kids Area</li>
+<li>Smart Security</li>
+<li>Parking</li>
+</ul>
+
+<h3>Swimming Pool</h3>
+<iframe src="https://www.youtube.com/embed/2OEL4P1Rz04"></iframe>
+
+<h3>Green Park</h3>
+<iframe src="https://www.youtube.com/embed/Scxs7L0vhZ4"></iframe>
+
+<h3>Location</h3>
+<iframe src="https://maps.google.com/maps?q=Bangalore&t=&z=13&output=embed"></iframe>
+
+</div>
+</div>
+
+</body>
+</html>
